@@ -2,8 +2,42 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
-const db = require("./db");
+const dbPool = require("./db");
 const path = require("path");
+const session = require("express-session");
+const sql = require("./sql");
+
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 1000 * 60 * 60,
+    secure: true,
+    httpOnly: true
+  }
+}));
+
+const request = {
+  async db(alias, param = [], where = ' ') {
+    return new Promise((resolve, reject) => {
+      dbPool.query(sql[alias].query + where, param, (error, results) => {
+        if (error) return reject(error);
+        resolve(results);
+      });
+    });
+  }
+};
+
+app.get('/api/:alias', async (req, res) =>{
+    try{
+        res.send(await request.db(req.params.alias))
+    }
+    catch(error){
+        res.status(500);
+        res.send("error");
+    }
+})
 
 app.get('/signup', (req, res) => {
   res.sendFile(path.join(__dirname, 'signup.html'));
