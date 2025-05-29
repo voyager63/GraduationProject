@@ -3,15 +3,15 @@ const app = express();
 const port = 3000;
 
 const db = require("./db");
+const path = require("path");
 
-db.query('SELECT * FROM user', (err, results)=>{
-    if(err){
-        console.log('쿼리 에러:', err);
-        return;
-    }
-    console.log('쿼리 결과:', results);
+app.get('/signup', (req, res) => {
+  res.sendFile(path.join(__dirname, 'signup.html'));
 });
 
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'login.html'));
+});
 
 app.get("/", (req, res)=>{
     res.status(200);
