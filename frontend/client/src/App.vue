@@ -3,6 +3,8 @@
     <router-link to="/">메인</router-link> |
     <router-link to="/about">어바웃</router-link>
     <router-link to="/signup">회원가입</router-link>
+    <router-link to="/login">로그인</router-link>
+    <router-link to="/logout">로그아웃</router-link>
   </nav>
   <router-view/>
 </template>

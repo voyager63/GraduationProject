@@ -65,6 +65,17 @@ app.post('/api/:alias', async (req, res) => {
           req.body.password,
         ];
         break;
+      
+      case 'logout':
+        req.session.destroy(err => {
+          if (err) {
+            console.error('로그아웃 중 오류:', err);
+            return res.status(500).send({ message: '로그아웃 실패' });
+          }
+          res.clearCookie('connect.sid');
+          res.send({ success: true, message: '로그아웃 되었습니다.' });
+        });
+        return
 
       case 'productList':
         param = [];
@@ -87,7 +98,16 @@ app.post('/api/:alias', async (req, res) => {
 
     
     const result = await request.db(alias, param, where);
-    res.send(result);
+
+    if(alias === 'login'){
+      if (result.length === 1) {
+        req.session.user = result[0];
+        res.send({ success: true, user: result[0] });
+      } else {
+        res.status(401).send({ message: '아이디 또는 비밀번호가 올바르지 않습니다.' });
+      }
+    }
+
   } catch (error) {
     console.error('서버 오류 발생:', error);
     res.status(500).json({ message: error.message || '서버 오류' });
