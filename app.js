@@ -99,6 +99,10 @@ app.post('/api/:alias', async (req, res) => {
     
     const result = await request.db(alias, param, where);
 
+    if(alias === 'productList'){
+      res.send(result);
+    }
+
     if(alias === 'login'){
       if (result.length === 1) {
         req.session.user = result[0];

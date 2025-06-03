@@ -4,6 +4,8 @@ import About from '../views/AboutView.vue'
 import SignUp from '../views/SignUp.vue'
 import UserLogin from '../views/UserLogin.vue'
 import UserLogout from '../views/UserLogout.vue'
+import ProductList from '../views/ProductList.vue'
+
 
 const routes = [
   {
@@ -30,6 +32,11 @@ const routes = [
     path: '/logout',
     name: 'userLogout',
     component: UserLogout
+  },
+  {
+    path: '/productList',
+    name: 'productList',
+    component: ProductList
   }
 ]
 
