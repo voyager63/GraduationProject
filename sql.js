@@ -8,15 +8,15 @@ module.exports = {
     },
 
     getMyProducts: {
-        query: "SELECT * FROM product;"
+        query: "SELECT * FROM product WHERE user_id = ?;"
     },
 
     signUp: {
         query: "INSERT INTO user(user_id, user_password, user_email, user_phoneNumber) VALUES(?, password(?), ?, ?);"
     },
 
-    productInsert: {
-        query: "INSERT INTO product(product_id, seller_id, product_name, product_price, product_quality, product_timeUsed) VALUES(?, ?, ?, ?, ?, ?);"
+    productRegister: {
+        query: "INSERT INTO product(seller_id, product_name, product_price, product_quality, product_timeUsed) VALUES(?, ?, ?, ?, ?);"
     },
 
     login: {

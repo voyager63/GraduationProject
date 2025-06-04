@@ -28,9 +28,9 @@ app.use(session({
 }));
 
 const request = {
-  async db(alias, param = [], where = ' ') {
+  async db(alias, param = []) {
     return new Promise((resolve, reject) => {
-      dbPool.query(sql[alias].query + where, param, (error, results) => {
+      dbPool.query(sql[alias].query, param, (error, results) => {
         if (error) return reject(error);
         resolve(results);
       });
@@ -47,7 +47,6 @@ app.post('/api/:alias', async (req, res) => {
   try {
     const alias = req.params.alias;
     let param = [];
-    let where = '';
 
     switch (alias) {
       case 'signUp':
@@ -80,6 +79,21 @@ app.post('/api/:alias', async (req, res) => {
       case 'productList':
         param = [];
         break;
+
+      case 'productRegister':
+        const sellerId = req.session.user?.user_id;
+        if (!sellerId) {
+          return res.status(401).send({ message: '로그인이 필요합니다.' });
+        }
+
+        param = [
+          sellerId,
+          req.body.name,
+          req.body.price,
+          req.body.quality,
+          req.body.timeUsed
+        ];
+        break;
       
       case 'getMyProducts':
         const userId = req.session.user?.user_id;
@@ -89,7 +103,7 @@ app.post('/api/:alias', async (req, res) => {
         }
 
         param = [userId];
-        where = ' WHERE user_id = ?';
+
         break;
 
       default:
@@ -97,9 +111,17 @@ app.post('/api/:alias', async (req, res) => {
     }
 
     
-    const result = await request.db(alias, param, where);
+    const result = await request.db(alias, param);
 
     if(alias === 'productList'){
+      res.send(result);
+    }
+
+    if(alias === 'getMyProducts'){
+      res.send(result);
+    }
+
+    if(alias === 'productRegister'){
       res.send(result);
     }
 

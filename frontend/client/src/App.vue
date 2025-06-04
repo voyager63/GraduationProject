@@ -6,6 +6,7 @@
     <router-link to="/signup">회원가입</router-link>
     <router-link to="/login">로그인</router-link>
     <router-link to="/logout">로그아웃</router-link>
+    <router-link to="/productRegister">상품 등록</router-link>
   </nav>
   <router-view/>
 </template>
