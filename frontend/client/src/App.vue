@@ -2,11 +2,11 @@
   <nav>
     <router-link to="/">메인</router-link>
     <router-link to="/productList">상품 목록</router-link>
-    <router-link to="/about">어바웃</router-link>
     <router-link to="/signup">회원가입</router-link>
     <router-link to="/login">로그인</router-link>
     <router-link to="/logout">로그아웃</router-link>
     <router-link to="/productRegister">상품 등록</router-link>
+    <router-link to="/myProducts">내가 등록한 상품</router-link>
   </nav>
   <router-view/>
 </template>

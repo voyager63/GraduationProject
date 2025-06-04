@@ -30,7 +30,6 @@ export default {
   },
   methods: {
     async submitForm() {
-      alert("폼 제출 성공");
       console.log('폼 제출 완료');
       console.log('폼 데이터:', this.form);
 

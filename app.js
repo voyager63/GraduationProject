@@ -38,10 +38,6 @@ const request = {
   }
 };
 
-app.get('/api/:alias', async (req, res)=>{
-  const result = await request.db(req.params.alias);
-    res.send(result);
-})
 
 app.post('/api/:alias', async (req, res) => {
   try {
@@ -106,24 +102,19 @@ app.post('/api/:alias', async (req, res) => {
 
         break;
 
+      case 'deleteProduct':
+        const user = req.session.user;
+        if (!user) return res.status(401).send({ message: '로그인이 필요합니다.' });
+
+        param = [req.body.productId, user.user_id];
+        break;
+
       default:
         return res.status(400).send('없는 경로임');
     }
 
     
     const result = await request.db(alias, param);
-
-    if(alias === 'productList'){
-      res.send(result);
-    }
-
-    if(alias === 'getMyProducts'){
-      res.send(result);
-    }
-
-    if(alias === 'productRegister'){
-      res.send(result);
-    }
 
     if(alias === 'login'){
       if (result.length === 1) {
@@ -132,6 +123,9 @@ app.post('/api/:alias', async (req, res) => {
       } else {
         res.status(401).send({ message: '아이디 또는 비밀번호가 올바르지 않습니다.' });
       }
+    }
+    else {
+      return res.send(result);
     }
 
   } catch (error) {

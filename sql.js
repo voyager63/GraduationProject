@@ -1,8 +1,4 @@
 module.exports = {
-    userList: {
-        query: "SELECT * FROM user;"
-    },
-
     productList: {
         query: "SELECT * FROM product;"
     },
@@ -16,10 +12,14 @@ module.exports = {
     },
 
     productRegister: {
-        query: "INSERT INTO product(seller_id, product_name, product_price, product_quality, product_timeUsed) VALUES(?, ?, ?, ?, ?);"
+        query: "INSERT INTO product(user_id, product_name, product_price, product_quality, product_timeUsed) VALUES(?, ?, ?, ?, ?);"
     },
 
     login: {
-        query: "SELECT * FROM user WHERE user_id = ? AND user_password = ?;"
+        query: "SELECT * FROM user WHERE user_id = ? AND user_password = password(?);"
+    },
+
+    deleteProduct: {
+        query: "DELETE FROM product WHERE product_id = ? AND user_id = ?"
     }
 }
