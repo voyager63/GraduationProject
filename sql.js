@@ -8,7 +8,7 @@ module.exports = {
     },
 
     signUp: {
-        query: "INSERT INTO user(user_id, user_password, user_email, user_phoneNumber) VALUES(?, password(?), ?, ?);"
+        query: "INSERT INTO user(user_id, user_name, user_password, user_email, user_phoneNumber) VALUES(?, ?, password(?), ?, ?);"
     },
 
     productRegister: {

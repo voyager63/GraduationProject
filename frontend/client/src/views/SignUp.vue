@@ -3,6 +3,7 @@
     <h2>회원가입</h2>
     <form @submit.prevent="submitForm">
       <input v-model="form.userId" placeholder="아이디" required />
+      <input v-model="form.userName" placeholder="닉네임" required />
       <input v-model="form.password" type="password" placeholder="비밀번호" required />
       <input v-model="form.email" type="email" placeholder="이메일" required />
       <input v-model="form.phoneNumber" placeholder="전화번호" required />
@@ -21,6 +22,7 @@ export default {
     return {
       form: {
         userId: '',
+        userName: '',
         password: '',
         email: '',
         phoneNumber: '',

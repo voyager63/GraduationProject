@@ -48,6 +48,7 @@ app.post('/api/:alias', async (req, res) => {
       case 'signUp':
         param = [
           req.body.userId,
+          req.body.userName,
           req.body.password,
           req.body.email,
           req.body.phoneNumber,
