@@ -6,6 +6,7 @@ import UserLogout from '../views/UserLogout.vue'
 import ProductList from '../views/ProductList.vue'
 import ProductRegister from '../views/ProductRegister.vue'
 import MyProducts from '../views/MyProducts.vue'
+import ProductDetails from '../views/ProductDetails.vue'
 
 
 const routes = [
@@ -43,6 +44,12 @@ const routes = [
     path: '/myProducts',
     name: 'myProducts',
     component: MyProducts
+  },
+  {
+    path: '/productDetails/:id',
+    name: 'productDetails',
+    component: ProductDetails,
+    props: true
   }
 ]
 

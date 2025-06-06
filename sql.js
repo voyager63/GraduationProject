@@ -1,6 +1,6 @@
 module.exports = {
     productList: {
-        query: "SELECT * FROM product;"
+        query: "SELECT p.product_id, p.product_name, p.product_price, u.user_name FROM product p JOIN user u ON p.user_id = u.user_id;"
     },
 
     getMyProducts: {
@@ -21,5 +21,9 @@ module.exports = {
 
     deleteProduct: {
         query: "DELETE FROM product WHERE product_id = ? AND user_id = ?"
+    },
+
+    getProductDetails: {
+        query: "SELECT p.*, u.user_name FROM product p JOIN user u ON p.user_id = u.user_id WHERE p.product_id = ?;"
     }
 }

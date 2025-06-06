@@ -5,8 +5,8 @@
       <li v-for="(product, index) in products" :key="index">
         <p><strong>상품명:</strong> {{ product.product_name }}</p>
         <p><strong>가격:</strong> {{ product.product_price }}원</p>
-        <p><strong>품질:</strong> {{ product.product_quality }}</p>
-        <p><strong>사용 기간:</strong> {{ product.product_timeUsed }}</p>
+        <p><strong>등록자:</strong> {{ product.user_name }}</p>
+        <button @click="goToDetails(product.product_id)">상세 정보</button>
         <hr />
       </li>
     </ul>
@@ -32,14 +32,11 @@ export default {
       console.error('상품 목록 조회 실패:', err);
       alert('상품 목록을 불러오는 데 실패했습니다.');
     }
+  },
+  methods: {
+    goToDetails(productId) {
+      this.$router.push({ name: 'productDetails', params: { id: productId } });
+    }
   }
 };
 </script>
-
-<style scoped>
-.product-list {
-  max-width: 600px;
-  margin: 20px auto;
-  text-align: left;
-}
-</style>
