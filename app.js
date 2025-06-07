@@ -96,7 +96,7 @@ app.post('/api/:alias', async (req, res) => {
         const userId = req.session.user?.user_id;
 
         if (!userId) {
-          return res.status(401).send('로그인이 필요함');
+          return res.status(401).send('로그인이 필요합니다.');
         }
 
         param = [userId];
@@ -115,6 +115,26 @@ app.post('/api/:alias', async (req, res) => {
         
       case 'getProductDetails':
         param = [req.body.productId];
+        break;
+
+      case 'checkSession':
+        if (req.session.user) {
+          return res.send({ isLoggedIn: true, user: req.session.user });
+        }
+        else {
+          return res.send({ isLoggedIn: false });
+        }
+
+      case 'sendMessage':
+        const sender = req.session.user;
+        if (!sender) return res.status(401).send({ message: '로그인이 필요합니다.' });
+
+        param = [
+          req.body.product_id,
+          sender.user_id,
+          req.body.receiver_id,
+          req.body.contents
+        ];
         break;
     }
 

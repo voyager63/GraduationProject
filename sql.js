@@ -25,5 +25,9 @@ module.exports = {
 
     getProductDetails: {
         query: "SELECT p.*, u.user_name FROM product p JOIN user u ON p.user_id = u.user_id WHERE p.product_id = ?;"
+    },
+
+    sendMessage: {
+        query: "INSERT INTO message(product_id, sender_id, receiver_id, contents) VALUES (?, ?, ?, ?);"
     }
 }

@@ -7,6 +7,7 @@ import ProductList from '../views/ProductList.vue'
 import ProductRegister from '../views/ProductRegister.vue'
 import MyProducts from '../views/MyProducts.vue'
 import ProductDetails from '../views/ProductDetails.vue'
+import SendMessage from '../views/SendMessage.vue'
 
 
 const routes = [
@@ -49,6 +50,12 @@ const routes = [
     path: '/productDetails/:id',
     name: 'productDetails',
     component: ProductDetails,
+    props: true
+  },
+  {
+    path: '/sendMessage/:id',
+    name: 'sendMessage',
+    component: SendMessage,
     props: true
   }
 ]

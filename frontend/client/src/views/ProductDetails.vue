@@ -7,6 +7,9 @@
       <p><strong>등록자:</strong> {{ product.user_name }}</p>
       <p><strong>품질:</strong> {{ product.product_quality }}</p>
       <p><strong>사용 기간:</strong> {{ product.product_timeUsed }}</p>
+
+      <button v-if="isLoggedIn" @click="goToSendMessage">메시지 보내기</button>
+      <p v-else>메시지 보내기는 로그인 후 이용 가능합니다.</p>
     </div>
     <div v-else>
       <p>상품 정보를 불러오는 중입니다...</p>
@@ -22,7 +25,8 @@ export default {
   props: ['id'],
   data() {
     return {
-      product: {}
+      product: {},
+      isLoggedIn: false
     };
   },
   async mounted() {
@@ -31,20 +35,18 @@ export default {
         productId: this.id
       });
       this.product = res.data[0];
+
+      // 세션을 통한 로그인 여부 확인
+      const sessionRes = await axios.post('http://localhost:3000/api/checkSession', {}, { withCredentials: true });
+      this.isLoggedIn = sessionRes.data.isLoggedIn;
     } catch (err) {
-      console.error('상세 정보 조회 실패:', err);
+      console.error('상세 정보 조회 실패 또는 로그인 확인 실패:', err);
+    }
+  },
+  methods: {
+    goToSendMessage() {
+      this.$router.push({ name: 'sendMessage', params: { id: this.id } });
     }
   }
 };
 </script>
-
-<style scoped>
-.product-detail {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 16px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-}
-</style>
