@@ -7,6 +7,7 @@
     <router-link to="/logout">로그아웃</router-link>
     <router-link to="/productRegister">상품 등록</router-link>
     <router-link to="/myProducts">내가 등록한 상품</router-link>
+    <router-link to="/mySentMessages">보낸 메시지함</router-link>
   </nav>
   <router-view/>
 </template>

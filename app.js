@@ -136,6 +136,14 @@ app.post('/api/:alias', async (req, res) => {
           req.body.contents
         ];
         break;
+
+      case 'getMySentMessages':
+        const senderId = req.session.user?.user_id;
+        if (!senderId) {
+          return res.status(401).send({ message: '로그인이 필요합니다.' });
+        }
+        param = [senderId];
+        break;
     }
 
     

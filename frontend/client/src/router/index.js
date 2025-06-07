@@ -8,6 +8,7 @@ import ProductRegister from '../views/ProductRegister.vue'
 import MyProducts from '../views/MyProducts.vue'
 import ProductDetails from '../views/ProductDetails.vue'
 import SendMessage from '../views/SendMessage.vue'
+import MySentMessages from '../views/MySentMessages.vue'
 
 
 const routes = [
@@ -57,6 +58,11 @@ const routes = [
     name: 'sendMessage',
     component: SendMessage,
     props: true
+  },
+  {
+  path: '/mySentMessages',
+  name: 'mySentMessages',
+  component: MySentMessages
   }
 ]
 

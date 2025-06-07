@@ -29,5 +29,9 @@ module.exports = {
 
     sendMessage: {
         query: "INSERT INTO message(product_id, sender_id, receiver_id, contents) VALUES (?, ?, ?, ?);"
+    },
+
+    getMySentMessages: {
+        query: "SELECT p.product_name, p.product_price, sender.user_name AS sender_name, receiver.user_name AS receiver_name, m.contents FROM message m JOIN product p ON m.product_id = p.product_id JOIN user sender ON m.sender_id = sender.user_id JOIN user receiver ON m.receiver_id = receiver.user_id WHERE m.sender_id = ? ORDER BY m.message_id DESC;"
     }
 }
