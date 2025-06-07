@@ -1,6 +1,6 @@
 <template>
-  <div class="my-sent-messages">
-    <h2>내가 보낸 메시지</h2>
+  <div class="my-received-messages">
+    <h2>내가 받은 메시지</h2>
     <div v-if="messages.length">
       <ul>
         <li v-for="(msg, index) in messages" :key="index">
@@ -14,7 +14,7 @@
       </ul>
     </div>
     <div v-else>
-      <p>보낸 메시지가 없습니다.</p>
+      <p>받은 메시지가 없습니다.</p>
     </div>
   </div>
 </template>
@@ -23,7 +23,7 @@
 import axios from 'axios';
 
 export default {
-  name: 'MySentMessage',
+  name: 'MyReceivedMessages',
   data() {
     return {
       messages: []
@@ -31,7 +31,7 @@ export default {
   },
   async mounted() {
     try {
-      const res = await axios.post('http://localhost:3000/api/getMySentMessages', {}, { withCredentials: true });
+      const res = await axios.post('http://localhost:3000/api/getMyReceivedMessages', {}, { withCredentials: true });
       this.messages = res.data;
     } catch (err) {
       console.error('메시지 조회 실패:', err);
@@ -42,7 +42,7 @@ export default {
 </script>
 
 <style scoped>
-.my-sent-messages {
+.my-received-messages {
   max-width: 800px;
   margin: auto;
   padding: 20px;

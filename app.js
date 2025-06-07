@@ -144,6 +144,14 @@ app.post('/api/:alias', async (req, res) => {
         }
         param = [senderId];
         break;
+
+      case 'getMyReceivedMessages':
+        const receiverId = req.session.user?.user_id;
+        if (!receiverId) {
+          return res.status(401).send({ message: '로그인이 필요합니다.' });
+        }
+        param = [receiverId];
+        break;
     }
 
     

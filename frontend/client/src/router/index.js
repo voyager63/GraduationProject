@@ -9,6 +9,7 @@ import MyProducts from '../views/MyProducts.vue'
 import ProductDetails from '../views/ProductDetails.vue'
 import SendMessage from '../views/SendMessage.vue'
 import MySentMessages from '../views/MySentMessages.vue'
+import MyReceivedMessages from '../views/MyReceivedMessages.vue';
 
 
 const routes = [
@@ -63,6 +64,11 @@ const routes = [
   path: '/mySentMessages',
   name: 'mySentMessages',
   component: MySentMessages
+  },
+  {
+  path: '/myReceivedMessages',
+  name: 'myReceivedMessages',
+  component: MyReceivedMessages
   }
 ]
 
