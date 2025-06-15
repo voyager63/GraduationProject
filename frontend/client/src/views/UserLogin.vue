@@ -12,9 +12,10 @@
 
 <script>
 import axios from 'axios';
+import eventBus from '../eventBus';
 
 export default {
-  name: 'LoginForm',
+  name: 'UserLogin',
   data() {
     return {
       form: {
@@ -28,10 +29,16 @@ export default {
     async submitForm() {
       try {
         const res = await axios.post('http://localhost:3000/api/login', this.form, {
-          withCredentials: true
+          withCredentials: true,
         });
+
         this.message = '로그인 성공!';
         console.log('로그인 성공:', res.data);
+
+        // 로그인 성공 알림
+        eventBus.emit('login-success');
+
+        // 홈으로 이동
         this.$router.push('/');
       } catch (err) {
         console.error('로그인 에러:', err);

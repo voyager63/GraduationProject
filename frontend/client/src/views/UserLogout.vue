@@ -7,27 +7,35 @@
 
 <script>
 import axios from 'axios';
+import eventBus from '../eventBus';
 
 export default {
   name: 'UserLogout',
   data() {
     return {
-      message: ''
+      message: '',
     };
   },
   methods: {
     async logout() {
       try {
         const res = await axios.post('http://localhost:3000/api/logout', {}, {
-          withCredentials: true
+          withCredentials: true,
         });
-        this.message = res.data.message;
+
+        this.message = res.data.message || '로그아웃 되었습니다.';
         console.log('로그아웃 성공');
+
+        // 로그아웃 성공 알림
+        eventBus.emit('logout-success');
+
+        // 홈으로 이동
+        this.$router.push('/');
       } catch (err) {
         console.error('로그아웃 실패:', err);
         this.message = '로그아웃 실패';
       }
-    }
-  }
+    },
+  },
 };
 </script>
