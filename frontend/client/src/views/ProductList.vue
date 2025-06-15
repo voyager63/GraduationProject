@@ -1,16 +1,19 @@
 <template>
-  <div class="product-list">
-    <h2>상품 목록</h2>
-    <ul v-if="products.length">
-      <li v-for="(product, index) in products" :key="index">
-        <p><strong>상품명:</strong> {{ product.product_name }}</p>
-        <p><strong>가격:</strong> {{ product.product_price }}원</p>
-        <p><strong>등록자:</strong> {{ product.user_name }}</p>
-        <button @click="goToDetails(product.product_id)">상세 정보</button>
-        <hr />
-      </li>
-    </ul>
-    <p v-else>상품이 없습니다.</p>
+  <div class="container mt-4">
+    <h2 class="mb-4">상품 목록</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col" v-for="(product, index) in products" :key="index">
+        <div class="card h-100">
+          <img :src="require('@/assets/product_image.png')" class="card-img-top" alt="상품 이미지" />
+          <div class="card-body">
+            <h5 class="card-title">{{ product.product_name }}</h5>
+            <p class="card-text">{{ product.product_price }}원</p>
+            <button class="btn btn-primary" @click="goToDetails(product.product_id)">상세 정보</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p v-if="!products.length" class="mt-4 text-muted">상품이 없습니다.</p>
   </div>
 </template>
 
