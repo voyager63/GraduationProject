@@ -6,6 +6,8 @@
       <input v-model="product.price" type="number" placeholder="가격" required />
       <input v-model="product.quality" placeholder="품질" required />
       <input v-model="product.timeUsed" placeholder="사용 기간" required />
+      <textarea v-model="product.description" placeholder="상품 설명" rows="4"></textarea>
+      
       <button type="submit">등록하기</button>
     </form>
     <p v-if="message">{{ message }}</p>
@@ -23,7 +25,8 @@ export default {
         name: '',
         price: '',
         quality: '',
-        timeUsed: ''
+        timeUsed: '',
+        description: ''
       },
       message: ''
     };
@@ -37,9 +40,10 @@ export default {
             name: this.product.name,
             price: this.product.price,
             quality: this.product.quality,
-            timeUsed: this.product.timeUsed
+            timeUsed: this.product.timeUsed,
+            description: this.product.description
           },
-          { withCredentials: true } // 세션 유지
+          { withCredentials: true }
         );
         this.message = '상품이 성공적으로 등록되었습니다!';
         console.log(res.data);
@@ -57,7 +61,7 @@ export default {
   max-width: 400px;
   margin: 0 auto;
 }
-input, button {
+input, textarea, button {
   display: block;
   margin: 10px auto;
   width: 100%;

@@ -12,7 +12,7 @@ module.exports = {
     },
 
     productRegister: {
-        query: "INSERT INTO product(user_id, product_name, product_price, product_quality, product_timeUsed) VALUES(?, ?, ?, ?, ?);"
+        query: "INSERT INTO product(user_id, product_name, product_price, product_quality, product_timeUsed, product_description) VALUES(?, ?, ?, ?, ?, ?);"
     },
 
     login: {

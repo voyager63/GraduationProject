@@ -88,7 +88,8 @@ app.post('/api/:alias', async (req, res) => {
           req.body.name,
           req.body.price,
           req.body.quality,
-          req.body.timeUsed
+          req.body.timeUsed,
+          req.body.description
         ];
         break;
       

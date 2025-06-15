@@ -7,6 +7,8 @@
       <p><strong>등록자:</strong> {{ product.user_name }}</p>
       <p><strong>품질:</strong> {{ product.product_quality }}</p>
       <p><strong>사용 기간:</strong> {{ product.product_timeUsed }}</p>
+      <p><strong>상품 설명:</strong></p>
+      <p>{{ product.product_description }}</p>
 
       <button v-if="isLoggedIn" @click="goToSendMessage">메시지 보내기</button>
       <p v-else>메시지 보내기는 로그인 후 이용 가능합니다.</p>
@@ -36,7 +38,6 @@ export default {
       });
       this.product = res.data[0];
 
-      // 세션을 통한 로그인 여부 확인
       const sessionRes = await axios.post('http://localhost:3000/api/checkSession', {}, { withCredentials: true });
       this.isLoggedIn = sessionRes.data.isLoggedIn;
     } catch (err) {
