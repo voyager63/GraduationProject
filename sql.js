@@ -1,6 +1,6 @@
 module.exports = {
     productList: {
-        query: "SELECT p.product_id, p.product_name, p.product_price, u.user_name FROM product p JOIN user u ON p.user_id = u.user_id;"
+        query: "SELECT product_id, product_name, product_price, product_img FROM product;"
     },
 
     getMyProducts: {
@@ -11,8 +11,8 @@ module.exports = {
         query: "INSERT INTO user(user_id, user_password, user_name, user_email, user_phoneNumber) VALUES(?, password(?), ?, ?, ?);"
     },
 
-    productRegister: {
-        query: "INSERT INTO product(user_id, product_name, product_price, product_quality, product_timeUsed, product_description) VALUES(?, ?, ?, ?, ?, ?);"
+    registerProduct: {
+        query: "INSERT INTO product(user_id, product_name, product_price, product_quality, product_timeUsed, product_img, product_description) VALUES(?, ?, ?, ?, ?, ?, ?);"
     },
 
     login: {

@@ -7,11 +7,21 @@ const path = require("path");
 const session = require("express-session");
 const sql = require("./sql");
 const cors = require('cors');
+const multer = require('multer');
+const fs = require('fs');
 
 app.use(cors({
   origin: 'http://localhost:8080',
   credentials: true
 }));
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, path.join(__dirname, 'uploads')),
+  filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
+});
+const upload = multer({ storage });
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -38,6 +48,22 @@ const request = {
   }
 };
 
+app.post('/api/registerProduct', upload.single('image'), async (req, res) => {
+  try {
+    const sellerId = req.session.user?.user_id;
+    if (!sellerId) return res.status(401).send({ message: '로그인이 필요합니다.' });
+
+    const { name, price, quality, timeUsed, description } = req.body;
+    const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
+
+    const param = [sellerId, name, price, quality, timeUsed, imagePath, description];
+    const result = await request.db('registerProduct', param);
+    res.send({ success: true, result });
+  } catch (err) {
+    console.error('상품 등록 실패:', err);
+    res.status(500).send({ message: '상품 등록 실패' });
+  }
+});
 
 app.post('/api/:alias', async (req, res) => {
   try {
@@ -175,6 +201,7 @@ app.post('/api/:alias', async (req, res) => {
     res.status(500).json({ message: error.message || '서버 오류' });
   }
 });
+
 
 app.listen(port, ()=>{
     console.log(`${port}번 포트에서 서버 실행 중`);

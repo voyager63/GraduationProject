@@ -4,11 +4,17 @@
     <div class="row row-cols-1 row-cols-md-3 g-4">
       <div class="col" v-for="(product, index) in products" :key="index">
         <div class="card h-100">
-          <img :src="require('@/assets/product_image.png')" class="card-img-top" alt="상품 이미지" />
+          <img
+            :src="getImageUrl(product.product_img)"
+            class="card-img-top"
+            alt="상품 이미지"
+          />
           <div class="card-body">
             <h5 class="card-title">{{ product.product_name }}</h5>
             <p class="card-text">{{ product.product_price }}원</p>
-            <button class="btn btn-primary" @click="goToDetails(product.product_id)">상세 정보</button>
+            <button class="btn btn-primary" @click="goToDetails(product.product_id)">
+              상세 정보
+            </button>
           </div>
         </div>
       </div>
@@ -39,6 +45,10 @@ export default {
   methods: {
     goToDetails(productId) {
       this.$router.push({ name: 'productDetails', params: { id: productId } });
+    },
+    getImageUrl(imgPath) {
+      if (!imgPath) return require('@/assets/product_image.png');
+      return `http://localhost:3000${imgPath}`;
     }
   }
 };

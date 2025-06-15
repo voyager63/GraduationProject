@@ -3,15 +3,28 @@
     <h2>메시지 보내기</h2>
 
     <div v-if="product && Object.keys(product).length">
+      <img
+        :src="getImageUrl(product.product_img)"
+        alt="상품 이미지"
+        style="max-width: 300px; margin-bottom: 20px;"
+      />
+
       <p><strong>등록자:</strong> {{ product.user_name }}</p>
       <p><strong>상품명:</strong> {{ product.product_name }}</p>
       <p><strong>가격:</strong> {{ product.product_price }}원</p>
       <p><strong>품질:</strong> {{ product.product_quality }}</p>
       <p><strong>사용 기간:</strong> {{ product.product_timeUsed }}</p>
+      <p><strong>상품 설명:</strong></p>
+      <p>{{ product.product_description }}</p>
 
-      <textarea v-model="message" placeholder="메시지를 입력하세요..." rows="5"></textarea>
+      <textarea
+        v-model="message"
+        placeholder="메시지를 입력하세요..."
+        rows="5"
+        style="width: 100%; margin-top: 20px;"
+      ></textarea>
       <br />
-      <button @click="sendMessage">전송</button>
+      <button @click="sendMessage" style="margin-top: 10px;">전송</button>
     </div>
     <div v-else>
       <p>상품 정보를 불러오는 중입니다...</p>
@@ -34,7 +47,11 @@ export default {
   async mounted() {
     try {
       // 세션 확인
-      const sessionRes = await axios.post('http://localhost:3000/api/checkSession', {}, { withCredentials: true });
+      const sessionRes = await axios.post(
+        'http://localhost:3000/api/checkSession',
+        {},
+        { withCredentials: true }
+      );
       if (!sessionRes.data.isLoggedIn) {
         alert('로그인이 필요합니다.');
         this.$router.push({ name: 'userLogin' });
@@ -59,11 +76,15 @@ export default {
       }
 
       try {
-        await axios.post('http://localhost:3000/api/sendMessage', {
-          product_id: this.id,
-          receiver_id: this.product.user_id,
-          contents: this.message
-        }, { withCredentials: true });
+        await axios.post(
+          'http://localhost:3000/api/sendMessage',
+          {
+            product_id: this.id,
+            receiver_id: this.product.user_id,
+            contents: this.message
+          },
+          { withCredentials: true }
+        );
 
         alert('메시지를 전송했습니다.');
         this.$router.back();
@@ -71,6 +92,10 @@ export default {
         console.error('메시지 전송 실패:', err);
         alert('메시지 전송에 실패했습니다.');
       }
+    },
+    getImageUrl(imgPath) {
+      if (!imgPath) return require('@/assets/product_image.png');
+      return `http://localhost:3000${imgPath}`;
     }
   }
 };
