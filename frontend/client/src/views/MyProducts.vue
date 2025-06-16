@@ -42,7 +42,7 @@ export default {
       const res = await axios.post('http://localhost:3000/api/getMyProducts', {}, { withCredentials: true });
       this.products = res.data;
     } catch (err) {
-      this.message = '상품을 불러오는 데 실패했습니다.';
+      this.message = '상품 목록을 불러올 수 없습니다.';
       console.error(err);
     }
   },
@@ -56,7 +56,7 @@ export default {
       try {
         await axios.post('http://localhost:3000/api/deleteProduct', { productId }, { withCredentials: true });
         this.products = this.products.filter(p => p.product_id !== productId);
-        this.message = '상품이 삭제되었습니다.';
+        this.message = '상품 삭제 성공';
       } catch (err) {
         this.message = '상품 삭제 실패';
         console.error(err);

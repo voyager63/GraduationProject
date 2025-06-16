@@ -19,7 +19,7 @@
 
       <textarea
         v-model="message"
-        placeholder="메시지를 입력하세요..."
+        placeholder="메시지를 입력하세요.."
         rows="5"
         class="message-box"
       ></textarea>
@@ -29,7 +29,7 @@
     </div>
 
     <div v-else>
-      <p>상품 정보를 불러오는 중입니다...</p>
+      <p>상품 정보를 불러오고 있습니다..</p>
     </div>
   </div>
 </template>
@@ -65,7 +65,7 @@ export default {
       });
       this.product = res.data[0];
     } catch (err) {
-      console.error('에러 발생:', err);
+      console.error('에러:', err);
     }
   },
   methods: {

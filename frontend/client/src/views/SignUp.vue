@@ -32,9 +32,6 @@ export default {
   },
   methods: {
     async submitForm() {
-      console.log('폼 제출 완료');
-      console.log('폼 데이터:', this.form);
-
       try {
         const res = await axios.post('http://localhost:3000/api/signUp', this.form);
         this.message = '회원가입 성공';

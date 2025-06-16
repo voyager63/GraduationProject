@@ -64,7 +64,7 @@ export default {
           }
         );
 
-        this.message = '상품이 성공적으로 등록되었습니다!';
+        this.message = '상품 등록 성공';
         console.log(res.data);
       } catch (err) {
         console.error(err);

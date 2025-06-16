@@ -42,7 +42,7 @@ export default {
       this.products = res.data;
     } catch (err) {
       console.error('상품 목록 조회 실패:', err);
-      alert('상품 목록을 불러오는 데 실패했습니다.');
+      alert('상품 목록을 불러올 수 없습니다.');
     }
   },
   methods: {

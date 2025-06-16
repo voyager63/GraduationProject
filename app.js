@@ -138,7 +138,7 @@ app.post('/api/:alias', async (req, res) => {
         break;
 
       default:
-        return res.status(400).send('없는 경로임');
+        return res.status(400).send('없는 경로입니다');
         
       case 'getProductDetails':
         param = [req.body.productId];

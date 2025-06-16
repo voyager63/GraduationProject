@@ -32,13 +32,13 @@ export default {
           withCredentials: true,
         });
 
-        this.message = '로그인 성공!';
+        this.message = '로그인 성공';
         console.log('로그인 성공:', res.data);
 
         eventBus.emit('login-success');
         this.$router.push('/');
       } catch (err) {
-        console.error('로그인 에러:', err);
+        console.error('에러:', err);
         const serverMsg = err.response?.data?.message;
         this.message = '로그인 실패: ' + (serverMsg || '서버 오류');
       }
