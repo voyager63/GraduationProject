@@ -35,10 +35,7 @@ export default {
         this.message = '로그인 성공!';
         console.log('로그인 성공:', res.data);
 
-        // 로그인 성공 알림
         eventBus.emit('login-success');
-
-        // 홈으로 이동
         this.$router.push('/');
       } catch (err) {
         console.error('로그인 에러:', err);
@@ -49,3 +46,36 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+input,
+button {
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+</style>
