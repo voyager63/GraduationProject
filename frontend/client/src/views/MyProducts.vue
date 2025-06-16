@@ -3,14 +3,25 @@
     <h2>내가 등록한 상품</h2>
     <div v-if="products.length === 0">등록한 상품이 없습니다.</div>
     <ul v-else>
-      <li v-for="(product, index) in products" :key="product.product_id">
-        <p><strong>{{ index + 1 }}. 상품명:</strong> {{ product.product_name }}</p>
-        <p><strong>가격:</strong> {{ product.product_price }}원</p>
-        <p><strong>품질:</strong> {{ product.product_quality }}</p>
-        <p><strong>사용 기간:</strong> {{ product.product_timeUsed }}</p>
-        <button @click="deleteProduct(product.product_id)">삭제</button>
-        <hr />
-</li>
+      <li
+        v-for="(product, index) in products"
+        :key="product.product_id"
+        style="display: flex; align-items: center;"
+      >
+        <img
+          :src="getImageUrl(product.product_img)"
+          alt="상품 이미지"
+          style="width: 100px; height: 100px; object-fit: cover; margin-right: 15px;"
+        />
+        <div>
+          <p><strong>{{ index + 1 }}. 상품명:</strong> {{ product.product_name }}</p>
+          <p><strong>가격:</strong> {{ product.product_price }}원</p>
+          <p><strong>품질:</strong> {{ product.product_quality }}</p>
+          <p><strong>사용 기간:</strong> {{ product.product_timeUsed }}</p>
+          <button @click="deleteProduct(product.product_id)">삭제</button>
+          <hr v-if="index < products.length - 1" class="divider" />
+        </div>
+      </li>
     </ul>
     <p v-if="message">{{ message }}</p>
   </div>
@@ -37,6 +48,10 @@ export default {
     }
   },
   methods: {
+    getImageUrl(imgPath) {
+      if (!imgPath) return require('@/assets/product_image.png');
+      return `http://localhost:3000${imgPath}`;
+    },
     async deleteProduct(productId) {
       if (!confirm('이 상품을 삭제하시겠습니까?')) return;
       try {
@@ -64,7 +79,7 @@ li {
   margin: 10px 0;
 }
 button {
-  margin-left: 10px;
+  margin-top: 5px;
   background-color: crimson;
   color: white;
   border: none;
