@@ -41,8 +41,41 @@ export default {
         console.log('응답:', res.data);
       } catch (err) {
         console.log('오류:', err);
+        this.message = '회원가입 실패';
       }
     }
   }
 };
 </script>
+
+<style scoped>
+.signup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+input, button {
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+</style>
