@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand-lg bg-light">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
       <div class="container-fluid d-flex justify-content-between align-items-center">
         <router-link class="navbar-brand" to="/">중고 전공서적 거래 시스템</router-link>
 
