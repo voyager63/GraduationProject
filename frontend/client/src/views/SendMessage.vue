@@ -87,7 +87,7 @@ export default {
         );
 
         this.successMessage = '메시지 전송 완료';
-        this.message = ''; // 메시지 입력창 비우기
+        this.message = '';
       } catch (err) {
         console.error('메시지 전송 실패:', err);
         alert('메시지 전송에 실패했습니다.');
