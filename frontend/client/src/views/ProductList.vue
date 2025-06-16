@@ -1,9 +1,12 @@
 <template>
-  <div class="container mt-4">
+  <div class="container px-2 mt-4">
     <h2 class="mb-4">상품 목록</h2>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col" v-for="(product, index) in products" :key="index">
-        <div class="card h-100">
+    <div class="row gx-2 gy-3">
+      <div class="col-6 col-md-3" v-for="(product, index) in products" :key="index">
+        <div
+          class="card h-100"
+          style="width: 220px; height: 300px; font-size: 0.9rem;"
+        >
           <img
             :src="getImageUrl(product.product_img)"
             class="card-img-top"
