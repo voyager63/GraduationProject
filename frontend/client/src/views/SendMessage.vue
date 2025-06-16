@@ -25,6 +25,7 @@
       ></textarea>
 
       <button @click="sendMessage" class="send-button">전송</button>
+      <p v-if="successMessage">{{ successMessage }}</p>
     </div>
 
     <div v-else>
@@ -42,7 +43,8 @@ export default {
   data() {
     return {
       product: {},
-      message: ''
+      message: '',
+      successMessage: ''
     };
   },
   async mounted() {
@@ -84,8 +86,8 @@ export default {
           { withCredentials: true }
         );
 
-        alert('메시지를 전송했습니다.');
-        this.$router.back();
+        this.successMessage = '메시지 전송 완료';
+        this.message = ''; // 메시지 입력창 비우기
       } catch (err) {
         console.error('메시지 전송 실패:', err);
         alert('메시지 전송에 실패했습니다.');
@@ -131,4 +133,5 @@ export default {
 .send-button:hover {
   background-color: #0056b3;
 }
+
 </style>
