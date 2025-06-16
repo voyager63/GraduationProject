@@ -19,7 +19,6 @@
           <p><strong>품질:</strong> {{ product.product_quality }}</p>
           <p><strong>사용 기간:</strong> {{ product.product_timeUsed }}</p>
           <button @click="deleteProduct(product.product_id)">삭제</button>
-          <hr v-if="index < products.length - 1" class="divider" />
         </div>
       </li>
     </ul>
@@ -69,17 +68,36 @@ export default {
 
 <style scoped>
 .my-products {
+  max-width: 800px;
+  margin: auto;
   padding: 20px;
 }
+
+.my-products > h2 {
+  text-align: left;
+  padding-left: 20px;
+}
+
 ul {
   list-style-type: none;
   padding: 0;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
 li {
+  width: 90%;
+  max-width: 600px;
   margin: 10px 0;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  text-align: left;
 }
+
 button {
-  margin-top: 5px;
+  margin-left: 10px;
   background-color: crimson;
   color: white;
   border: none;
