@@ -1,12 +1,12 @@
 <template>
   <div class="product-detail">
     <h2>상품 상세 정보</h2>
-    <div v-if="product && Object.keys(product).length">
-      <p>사진</p>
+
+    <div v-if="product && Object.keys(product).length" class="product-info">
       <img
         :src="getImageUrl(product.product_img)"
         alt="상품 이미지"
-        style="max-width: 300px; margin-bottom: 20px;"
+        class="product-image"
       />
 
       <p><strong>상품명:</strong> {{ product.product_name }}</p>
@@ -20,6 +20,7 @@
       <button v-if="isLoggedIn" @click="goToSendMessage">메시지 보내기</button>
       <p v-else>메시지 보내기는 로그인 후 이용 가능합니다.</p>
     </div>
+
     <div v-else>
       <p>상품 정보를 불러오는 중입니다...</p>
     </div>
@@ -66,3 +67,31 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.product-detail {
+  max-width: 600px;
+  margin: 50px auto;
+  text-align: center;
+  font-size: 18px;
+}
+
+.product-image {
+  max-width: 300px;
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+</style>
