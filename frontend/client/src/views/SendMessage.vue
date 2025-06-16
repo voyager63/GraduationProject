@@ -2,11 +2,11 @@
   <div class="send-message">
     <h2>메시지 보내기</h2>
 
-    <div v-if="product && Object.keys(product).length">
+    <div v-if="product && Object.keys(product).length" class="message-content">
       <img
         :src="getImageUrl(product.product_img)"
         alt="상품 이미지"
-        style="max-width: 300px; margin-bottom: 20px;"
+        class="product-image"
       />
 
       <p><strong>등록자:</strong> {{ product.user_name }}</p>
@@ -21,11 +21,12 @@
         v-model="message"
         placeholder="메시지를 입력하세요..."
         rows="5"
-        style="width: 100%; margin-top: 20px;"
+        class="message-box"
       ></textarea>
-      <br />
-      <button @click="sendMessage" style="margin-top: 10px;">전송</button>
+
+      <button @click="sendMessage" class="send-button">전송</button>
     </div>
+
     <div v-else>
       <p>상품 정보를 불러오는 중입니다...</p>
     </div>
@@ -46,7 +47,6 @@ export default {
   },
   async mounted() {
     try {
-      // 세션 확인
       const sessionRes = await axios.post(
         'http://localhost:3000/api/checkSession',
         {},
@@ -58,12 +58,10 @@ export default {
         return;
       }
 
-      // 상품 정보 로드
       const res = await axios.post('http://localhost:3000/api/getProductDetails', {
         productId: this.id
       });
       this.product = res.data[0];
-
     } catch (err) {
       console.error('에러 발생:', err);
     }
@@ -100,3 +98,37 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.send-message {
+  max-width: 600px;
+  margin: 50px auto;
+  text-align: center;
+  font-size: 18px;
+}
+
+.product-image {
+  max-width: 300px;
+  margin-bottom: 20px;
+}
+
+.message-box {
+  width: 100%;
+  margin: 20px 0;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.send-button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.send-button:hover {
+  background-color: #0056b3;
+}
+</style>
