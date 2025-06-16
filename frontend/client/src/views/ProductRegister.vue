@@ -7,9 +7,10 @@
       <input v-model="product.quality" placeholder="품질" required />
       <input v-model="product.timeUsed" placeholder="사용 기간" required />
       <textarea v-model="product.description" placeholder="상품 설명" rows="4"></textarea>
-      <label>
+
+      <label class="file-label">
         사진 첨부:
-      <input type="file" @change="handleFileChange" accept="image/*" />
+        <input type="file" @change="handleFileChange" accept="image/*" />
       </label>
 
       <button type="submit">등록하기</button>
@@ -77,11 +78,39 @@ export default {
 <style scoped>
 .product-register {
   max-width: 400px;
-  margin: 0 auto;
+  margin: 50px auto;
+  text-align: center;
 }
-input, textarea, button {
-  display: block;
-  margin: 10px auto;
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input,
+textarea,
+button {
+  margin-bottom: 15px;
+  padding: 10px;
   width: 100%;
+  font-size: 16px;
+}
+
+button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.file-label {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 15px;
 }
 </style>
