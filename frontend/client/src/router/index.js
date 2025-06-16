@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import SignUp from '../views/SignUp.vue'
 import UserLogin from '../views/UserLogin.vue'
-import UserLogout from '../views/UserLogout.vue'
 import ProductList from '../views/ProductList.vue'
 import ProductRegister from '../views/ProductRegister.vue'
 import MyProducts from '../views/MyProducts.vue'
@@ -27,11 +26,6 @@ const routes = [
     path: '/login',
     name: 'userLogin',
     component: UserLogin
-  },
-  {
-    path: '/logout',
-    name: 'userLogout',
-    component: UserLogout
   },
   {
     path: '/productList',

@@ -43,7 +43,13 @@
               <router-link class="nav-link" to="/login">로그인</router-link>
             </li>
             <li class="nav-item d-flex align-items-center" v-if="user">
-              <router-link class="nav-link" to="/logout">로그아웃</router-link>
+              <button 
+                class="nav-link btn btn-link p-0" 
+                style="cursor:pointer; color: white; text-decoration: none;" 
+                @click="logout"
+              >
+                로그아웃
+              </button>
               <span class="navbar-text ms-2">{{ user.user_name }}님</span>
             </li>
           </ul>
@@ -93,6 +99,19 @@ export default {
       } catch (error) {
         console.error('세션 확인 오류:', error);
         this.user = null;
+      }
+    },
+    async logout() {
+      try {
+        await axios.post('http://localhost:3000/api/logout', {}, {
+          withCredentials: true,
+        });
+        eventBus.emit('logout-success');
+        this.user = null;
+        this.$router.push('/');
+      } catch (err) {
+        console.error('로그아웃 실패:', err);
+        alert('로그아웃 실패했습니다.');
       }
     }
   }
