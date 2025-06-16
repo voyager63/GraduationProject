@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-expand-lg bg-light">
-      <div class="container-fluid">
+      <div class="container-fluid d-flex justify-content-between align-items-center">
         <router-link class="navbar-brand" to="/">중고 전공서적 거래 시스템</router-link>
 
         <button
@@ -13,19 +13,13 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+          <ul class="navbar-nav">
             <li class="nav-item">
               <router-link class="nav-link" to="/">메인</router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link" to="/productList">상품 목록</router-link>
-            </li>
-            <li class="nav-item" v-if="!user">
-              <router-link class="nav-link" to="/signup">회원가입</router-link>
-            </li>
-            <li class="nav-item" v-if="!user">
-              <router-link class="nav-link" to="/login">로그인</router-link>
             </li>
             <li class="nav-item" v-if="user">
               <router-link class="nav-link" to="/productRegister">상품 등록</router-link>
@@ -39,14 +33,20 @@
             <li class="nav-item" v-if="user">
               <router-link class="nav-link" to="/myReceivedMessages">받은 메시지함</router-link>
             </li>
-            <li class="nav-item" v-if="user">
-              <router-link class="nav-link" to="/logout">로그아웃</router-link>
-            </li>
           </ul>
 
-          <span class="navbar-text" v-if="user">
-            {{ user.user_name }}님
-          </span>
+          <ul class="navbar-nav ms-auto d-flex align-items-center">
+            <li class="nav-item" v-if="!user">
+              <router-link class="nav-link" to="/signup">회원가입</router-link>
+            </li>
+            <li class="nav-item" v-if="!user">
+              <router-link class="nav-link" to="/login">로그인</router-link>
+            </li>
+            <li class="nav-item d-flex align-items-center" v-if="user">
+              <router-link class="nav-link" to="/logout">로그아웃</router-link>
+              <span class="navbar-text ms-2">{{ user.user_name }}님</span>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
