@@ -38,7 +38,7 @@ export default {
         eventBus.emit('login-success');
         this.$router.push('/');
       } catch (err) {
-        console.error('에러:', err);
+        console.error('오류:', err);
         const serverMsg = err.response?.data?.message;
         this.message = '로그인 실패: ' + (serverMsg || '서버 오류');
       }

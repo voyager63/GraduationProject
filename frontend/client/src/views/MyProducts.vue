@@ -52,7 +52,7 @@ export default {
       return `http://localhost:3000${imgPath}`;
     },
     async deleteProduct(productId) {
-      if (!confirm('이 상품을 삭제하시겠습니까?')) return;
+      if (!confirm('정말 이 상품을 삭제하시겠습니까?')) return;
       try {
         await axios.post('http://localhost:3000/api/deleteProduct', { productId }, { withCredentials: true });
         this.products = this.products.filter(p => p.product_id !== productId);

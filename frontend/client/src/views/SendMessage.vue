@@ -65,7 +65,7 @@ export default {
       });
       this.product = res.data[0];
     } catch (err) {
-      console.error('에러:', err);
+      console.error('오류:', err);
     }
   },
   methods: {
@@ -86,7 +86,7 @@ export default {
           { withCredentials: true }
         );
 
-        this.successMessage = '메시지 전송 완료';
+        this.successMessage = '메시지 전송 성공';
         this.message = '';
       } catch (err) {
         console.error('메시지 전송 실패:', err);

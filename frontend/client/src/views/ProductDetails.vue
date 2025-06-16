@@ -18,7 +18,7 @@
       <p>{{ product.product_description }}</p>
 
       <button v-if="isLoggedIn" @click="goToSendMessage">메시지 보내기</button>
-      <p v-else>메시지 보내기는 로그인 후 이용 가능합니다.</p>
+      <p v-else>메시지 보내기는 로그인 후에 가능합니다.</p>
     </div>
 
     <div v-else>
@@ -53,7 +53,7 @@ export default {
       );
       this.isLoggedIn = sessionRes.data.isLoggedIn;
     } catch (err) {
-      console.error('상세 정보 조회 실패 또는 로그인 확인 실패:', err);
+      console.error('상세 정보 조회 실패:', err);
     }
   },
   methods: {
