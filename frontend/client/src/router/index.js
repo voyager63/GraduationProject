@@ -33,9 +33,10 @@ const routes = [
     component: ProductList
   },
   {
-    path: '/productRegister',
+    path: '/productRegister/:id?',
     name: 'productRegister',
-    component: ProductRegister
+    component: ProductRegister,
+    props: true
   },
   {
     path: '/myProducts',

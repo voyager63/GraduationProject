@@ -45,5 +45,9 @@ module.exports = {
 
     getMessageById: {
         query: "SELECT * FROM message WHERE message_id = ?;"
+    },
+
+    updateProduct: {
+        query: "UPDATE product SET product_name = ?, product_price = ?, product_quality = ?, product_timeUsed = ?, product_img = ?, product_description = ? WHERE product_id = ? AND user_id = ?;"
     }
 }

@@ -91,6 +91,34 @@ app.post('/api/registerProduct', upload.single('image'), async (req, res) => {
   }
 });
 
+app.post('/api/updateProduct', upload.single('image'), async (req, res) => {
+  try {
+    const sId = req.session.user?.user_id;
+    if (!sId) return res.status(401).send({ message: '로그인이 필요합니다.' });
+
+    const { name, price, quality, timeUsed, description, productId, imagePath } = req.body;
+    // 새 이미지가 있으면 교체, 없으면 기존 유지
+    const finalImagePath = req.file ? `/uploads/${req.file.filename}` : imagePath || null;
+
+    const param = [
+      name,
+      price,
+      quality,
+      timeUsed,
+      finalImagePath,
+      description,
+      productId,
+      sId
+    ];
+
+    const result = await request.db('updateProduct', param);
+    res.send({ success: true, result });
+  } catch (err) {
+    console.error('상품 수정 실패:', err);
+    res.status(500).send({ message: '상품 수정 실패' });
+  }
+});
+
 app.post('/api/:alias', async (req, res) => {
   try {
     const alias = req.params.alias;
@@ -212,6 +240,7 @@ app.post('/api/:alias', async (req, res) => {
         if (!uId) return res.status(401).send({ message: '로그인이 필요합니다.' });
         param = [req.body.messageId];
         break;
+
     }
 
     

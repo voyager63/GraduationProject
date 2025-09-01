@@ -18,6 +18,7 @@
           <p><strong>가격:</strong> {{ product.product_price }}원</p>
           <p><strong>품질:</strong> {{ product.product_quality }}</p>
           <p><strong>사용 기간:</strong> {{ product.product_timeUsed }}</p>
+          <button @click="editProduct(product.product_id)">수정</button>
           <button @click="deleteProduct(product.product_id)">삭제</button>
         </div>
       </li>
@@ -61,6 +62,13 @@ export default {
         this.message = '상품 삭제 실패';
         console.error(err);
       }
+    },
+    editProduct(productId) {
+      // params 방식으로 이동
+      this.$router.push({
+        name: 'productRegister',
+        params: { id: productId }
+      });
     }
   }
 };
@@ -103,5 +111,9 @@ button {
   border: none;
   padding: 5px 10px;
   cursor: pointer;
+}
+
+button:first-of-type {
+  background-color: steelblue;
 }
 </style>
