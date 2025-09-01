@@ -97,20 +97,23 @@ app.post('/api/updateProduct', upload.single('image'), async (req, res) => {
     if (!sId) return res.status(401).send({ message: '로그인이 필요합니다.' });
 
     const { name, price, quality, timeUsed, description, productId, imagePath } = req.body;
-    // 새 이미지가 있으면 교체, 없으면 기존 유지
-    const finalImagePath = req.file ? `/uploads/${req.file.filename}` : imagePath || null;
 
-    const param = [
-      name,
-      price,
-      quality,
-      timeUsed,
-      finalImagePath,
-      description,
-      productId,
-      sId
-    ];
+    // 기존 이미지 조회
+    const existingProduct = await request.db('getProductDetails', [productId]);
+    const existingImagePath = existingProduct[0]?.product_img;
 
+    // 새 이미지가 들어오고 기존 이미지가 있으면 삭제
+    if (req.file && existingImagePath) {
+      const filePath = path.join(__dirname, existingImagePath);
+      if (fs.existsSync(filePath)) fs.unlink(filePath, err => {
+        if (err) console.error('기존 이미지 삭제 실패:', err);
+      });
+    }
+
+    // DB에 들어갈 최종 이미지 경로
+    const finalImagePath = req.file ? `/uploads/${req.file.filename}` : imagePath || existingImagePath || null;
+
+    const param = [name, price, quality, timeUsed, finalImagePath, description, productId, sId];
     const result = await request.db('updateProduct', param);
     res.send({ success: true, result });
   } catch (err) {
@@ -187,6 +190,18 @@ app.post('/api/:alias', async (req, res) => {
       case 'deleteProduct':
         const user = req.session.user;
         if (!user) return res.status(401).send({ message: '로그인이 필요합니다.' });
+
+        // 삭제 전 이미지 조회
+        const productToDelete = await request.db('getProductDetails', [req.body.productId]);
+        const imageToDelete = productToDelete[0]?.product_img;
+
+        // 이미지 파일 삭제
+        if (imageToDelete) {
+          const filePath = path.join(__dirname, imageToDelete);
+          if (fs.existsSync(filePath)) fs.unlink(filePath, err => {
+            if (err) console.error('상품 이미지 삭제 실패:', err);
+          });
+        }
 
         param = [req.body.productId, user.user_id];
         break;
