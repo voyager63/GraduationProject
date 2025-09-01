@@ -48,6 +48,32 @@ const request = {
   }
 };
 
+app.post('/api/messages/:id/respond', async (req, res) => {
+    try {
+        const messageId = req.params.id;
+        const { action } = req.body;
+        const receiver = req.session.user?.user_id;
+        if (!receiver) return res.status(401).send({ message: '로그인이 필요합니다.' });
+
+        const originalMsg = await request.db('getMessageById', [messageId]);
+        if (!originalMsg.length) return res.status(404).send({ message: '메시지를 찾을 수 없음' });
+        const msg = originalMsg[0];
+        if (msg.receiver_id !== receiver) return res.status(403).send({ message: '권한 없음' });
+
+        
+        await request.db('deleteMessageCompletely', [messageId]);
+
+        
+        const replyContent = msg.contents + (action === 'accepted' ? ' - 거래 요청 수락됨' : ' - 거래 요청 거절됨');
+        await request.db('sendMessage', [msg.product_id, receiver, msg.sender_id, replyContent, 0]);
+
+        res.send({ success: true });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ message: '응답 처리 실패' });
+    }
+});
+
 app.post('/api/registerProduct', upload.single('image'), async (req, res) => {
   try {
     const sellerId = req.session.user?.user_id;
@@ -160,7 +186,8 @@ app.post('/api/:alias', async (req, res) => {
           req.body.product_id,
           sender.user_id,
           req.body.receiver_id,
-          req.body.contents
+          req.body.contents,
+          1
         ];
         break;
 
@@ -178,6 +205,12 @@ app.post('/api/:alias', async (req, res) => {
           return res.status(401).send({ message: '로그인이 필요합니다.' });
         }
         param = [receiverId];
+        break;
+
+      case 'deleteMessageCompletely':
+        const uId = req.session.user?.user_id;
+        if (!uId) return res.status(401).send({ message: '로그인이 필요합니다.' });
+        param = [req.body.messageId];
         break;
     }
 

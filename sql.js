@@ -28,14 +28,22 @@ module.exports = {
     },
 
     sendMessage: {
-        query: "INSERT INTO message(product_id, sender_id, receiver_id, contents) VALUES (?, ?, ?, ?);"
+        query: "INSERT INTO message(product_id, sender_id, receiver_id, contents, request) VALUES (?, ?, ?, ?, ?);"
     },
 
     getMySentMessages: {
-        query: "SELECT p.product_name, p.product_price, p.product_img, sender.user_name AS sender_name, receiver.user_name AS receiver_name, m.contents FROM message m JOIN product p ON m.product_id = p.product_id JOIN user sender ON m.sender_id = sender.user_id JOIN user receiver ON m.receiver_id = receiver.user_id WHERE m.sender_id = ? ORDER BY m.message_id DESC;"
+        query: "SELECT p.product_name, p.product_price, p.product_img, sender.user_name AS sender_name, receiver.user_name AS receiver_name, m.contents FROM message m JOIN product p ON m.product_id = p.product_id JOIN user sender ON m.sender_id = sender.user_id JOIN user receiver ON m.receiver_id = receiver.user_id WHERE m.sender_id = ? AND m.request = 1 ORDER BY m.message_id DESC;"
     },
 
     getMyReceivedMessages: {
-        query: "SELECT p.product_name, p.product_price, p.product_img, sender.user_name AS sender_name, receiver.user_name AS receiver_name, m.contents FROM message m JOIN product p ON m.product_id = p.product_id JOIN user sender ON m.sender_id = sender.user_id JOIN user receiver ON m.receiver_id = receiver.user_id WHERE m.receiver_id = ? ORDER BY m.message_id DESC;"
+        query: "SELECT m.message_id, p.product_name, p.product_price, p.product_img, sender.user_name AS sender_name, receiver.user_name AS receiver_name, m.contents FROM message m JOIN product p ON m.product_id = p.product_id JOIN user sender ON m.sender_id = sender.user_id JOIN user receiver ON m.receiver_id = receiver.user_id WHERE m.receiver_id = ? ORDER BY m.message_id DESC;"
+    },
+
+    deleteMessageCompletely: {
+        query: "DELETE FROM message WHERE message_id = ?;"
+    },
+
+    getMessageById: {
+        query: "SELECT * FROM message WHERE message_id = ?;"
     }
 }
